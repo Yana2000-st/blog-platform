@@ -1,0 +1,35 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 26px;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.ant-pagination-item {
+  border: none;
+}
+
+.ant-pagination-item a {
+  color: #000;
+}
+
+.ant-pagination-item-active {
+  background-color: #1890ff !important;
+  border-radius: 4px !important;
+  border: none !important;
+}
+
+.ant-pagination-item-active a {
+  color: #fff !important;
+}

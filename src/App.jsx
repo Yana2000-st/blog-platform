@@ -1,10 +1,22 @@
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
+import ArticlesListPage from './pages/ArticlesListPage/ArticlesListPage';
+import ArticlePage from './pages/ArticlePage/ArticlePage';
+import Header from './components/Header/Header';
+import styles from './App.module.scss';
 
+export default function App() {
   return (
-  <div>Привет</div>
+    <>
+      <Header />
+      <div className={styles.container}>
+        <Routes>
+          <Route path="/" element={<ArticlesListPage />} />
+          <Route path="/articles" element={<ArticlesListPage />} />
+          <Route path="/articles/:slug" element={<ArticlePage />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
-export default App;
