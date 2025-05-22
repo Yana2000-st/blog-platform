@@ -10,23 +10,22 @@ import styles from './ArticlesListPage.module.scss';
 export default function ArticlesListPage() {
   const [page, setPage] = useState(1);
 
-  // получаю статьи с сервера
   const { data, isLoading, error } = useQuery({
-    queryKey: ['articles', page], // ключ для кэширования запроса
-    queryFn: () => getArticles(page), // функция, которая вызывает API
-    keepPreviousData: true, // сохраняет данные прошлой страницы при загрузке новой
+    queryKey: ['articles', page],
+    queryFn: () => getArticles(page),
+    keepPreviousData: true,
   });
 
   if (isLoading) {
-    return <p>Идет загрузка...</p>;
+    return <p className={styles.center}>Идет загрузка...</p>;
   }
 
   if (error) {
-    return <p>Ошибка загрузки: {error.message}</p>;
+    return <p className={styles.center}>Ошибка загрузки: {error.message}</p>;
   }
 
   if (!data) {
-    return <p>Данные не получены...</p>;
+    return <p className={styles.center}>Данные не получены...</p>;
   }
 
   const totalArticles = data.articlesCount;

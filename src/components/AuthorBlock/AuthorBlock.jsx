@@ -7,7 +7,7 @@ export default function AuthorBlock({ author, createdAt }) {
   return (
     <div className={styles.authorBlock}>
       <div className={styles.authorInfo}>
-        <span className={styles.author}>{author.username}</span>
+        <span className={styles.author}>{author.username.charAt(0).toUpperCase() + author.username.slice(1)}</span>
         <span className={styles.date}>{formattedDate}</span>
       </div>
       <img className={styles.avatar} src={author.image} alt={author.username} />

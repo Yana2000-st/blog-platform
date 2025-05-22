@@ -19,7 +19,7 @@ export default function ArticlePage() {
   if (error) return <p>Ошибка загрузки статьи</p>;
   if (!data) return <p>Статья не найдена</p>;
 
-  const { title, body, tagList, author, favoritesCount, createdAt } = data;
+  const { title, body, description, tagList, author, favoritesCount, createdAt } = data;
 
   return (
     <div className={styles.container}>
@@ -44,7 +44,7 @@ export default function ArticlePage() {
 
           <AuthorBlock author={author} createdAt={createdAt} />
         </div>
-
+        <p className={styles.description}>{description}</p>
         <div className={styles.markdown}>
           <ReactMarkdown>{body}</ReactMarkdown>
         </div>

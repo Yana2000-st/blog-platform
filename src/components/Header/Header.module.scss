@@ -16,6 +16,10 @@
   color: #000000;
 }
 
+.logo:hover {
+  text-decoration: underline;
+}
+
 .auth {
   display: flex;
   gap: 16px;
@@ -34,7 +38,9 @@
   text-decoration: underline;
 }
 
-.linkSignUp {
-  color: #52c41a;
+.active {
   border: 1px solid #52c41a;
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: #52c41a;
 }

@@ -1,20 +1,20 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
   return (
     <header className={styles.header}>
-      <Link to="/" className={styles.logo}>
+      <NavLink to="/" className={({ isActive }) => `${styles.logo} ${isActive ? styles.active : ''}`}>
         Realworld Blog
-      </Link>
+      </NavLink>
       <div className={styles.auth}>
-        <Link to="/sign-in" className={styles.link}>
+        <NavLink to="/sign-in" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
           Sign In
-        </Link>
-        <Link to="/sign-up" className={`${styles.link} ${styles.linkSignUp}`}>
+        </NavLink>
+        <NavLink to="/sign-up" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
           Sign Up
-        </Link>
+        </NavLink>
       </div>
     </header>
   );

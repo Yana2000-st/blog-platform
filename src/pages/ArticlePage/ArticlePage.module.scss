@@ -76,10 +76,11 @@
 }
 
 .tag {
-  border: 1px solid #000;
+  border: 1px solid #bfbfbf;
   padding: 4px 10px;
   border-radius: 2px;
   font-size: 12px;
+  color: #bfbfbf;
 }
 
 .markdown {
@@ -88,4 +89,9 @@
   overflow-wrap: anywhere;
   line-height: 1.6;
   font-size: 16px;
+}
+
+.description {
+  font-size: 12px;
+  color: #bfbfbf;
 }

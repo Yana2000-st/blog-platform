@@ -25,11 +25,13 @@ export default function ArticleCard({ article }) {
       </div>
 
       <ul className={styles.tags}>
-        {tagList.map((tag) => (
-          <li key={tag} className={styles.tag}>
-            {tag}
-          </li>
-        ))}
+        {tagList
+          .filter((tag) => tag.trim() !== '')
+          .map((tag) => (
+            <li key={tag} className={styles.tag}>
+              {tag}
+            </li>
+          ))}
       </ul>
 
       <p className={styles.description}>{description}</p>
