@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { registerUser } from '../../api/auth';
 
 import styles from './SignUpPage.module.scss';
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
   //  useForm для управления формой
   const {
     register,
@@ -26,7 +28,7 @@ export default function SignUpPage() {
 
       // сохраняю токен в localStorage
       localStorage.setItem('token', response.user.token);
-      alert('Регистрация прошла успешно!');
+      navigate('/');
     } catch (error) {
       // если есть ошибки от сервера — покажу под полями
       const serverErrors = error.response?.data?.errors;
@@ -77,7 +79,7 @@ export default function SignUpPage() {
             })}
             placeholder="Email address"
           />
-          {(errors.email?.message || errors.email) && <span className={styles.error}>{errors.email.message}</span>}
+          {errors.email && <span className={styles.error}>{errors.email.message}</span>}
         </label>
 
         {/* Пароль */}

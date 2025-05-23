@@ -13,7 +13,7 @@ export default function ArticleCard({ article }) {
         <div>
           <div className={styles.titleWrapper}>
             <h2 className={styles.title}>
-              <Link to={`/articles/${slug}`}>{title?.trim() ? title : 'Без названия'}</Link>
+              <Link to={`/articles/${slug}`}>{title?.trim() || 'Без названия'}</Link>
             </h2>
             <button className={styles.likeBtn} disabled>
               🤍<span>{favoritesCount}</span>

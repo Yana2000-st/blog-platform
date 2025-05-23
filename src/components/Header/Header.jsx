@@ -1,17 +1,23 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useUser } from '../../Authorization/Authorization';
 import { queryClient } from '../../main';
+import { DEFAULT_AVATAR } from '../../Constants/index.js';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
+  const navigate = useNavigate();
   const { data: user } = useUser();
   const handleLogout = () => {
+    const confirmed = window.confirm('Вы уверены, что хотите выйти?');
+    if (!confirmed) return;
+
     localStorage.removeItem('token');
     queryClient.removeQueries(['currentUser']);
-    window.location.reload();
+    navigate('/');
   };
+
   return (
     <header className={styles.header}>
       <NavLink to="/" className={({ isActive }) => (isActive ? `${styles.logo} ${styles.active}` : styles.link)}>
@@ -44,7 +50,7 @@ const Header = () => {
 
           <NavLink to="/profile" className={styles.profileLink}>
             {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
-            <img src={user.image} alt={user.username} className={styles.avatar} />
+            <img src={user.image || DEFAULT_AVATAR} alt={user.username} className={styles.avatar} />
           </NavLink>
 
           <button onClick={handleLogout} className={styles.link}>

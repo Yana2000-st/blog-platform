@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { Avatar } from 'antd';
 
 import { queryClient } from '../../main';
 import { profileUser } from '../../api/auth';
@@ -29,8 +28,6 @@ export default function ProfilePage() {
       localStorage.setItem('token', response.user.token);
 
       await queryClient.invalidateQueries(['currentUser']);
-
-      alert('Редактирование прошло успешно!');
     } catch (error) {
       // если есть ошибки от сервера — покажу под полями
       const serverErrors = error.response?.data?.errors;
@@ -112,7 +109,7 @@ export default function ProfilePage() {
             type="text"
             {...register('avatar', {
               pattern: {
-                value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))$/i,
+                value: /^https?:\/\/.+/,
                 message: 'Введите корректный URL изображения',
               },
             })}
