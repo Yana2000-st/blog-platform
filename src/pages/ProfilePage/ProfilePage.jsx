@@ -1,44 +1,77 @@
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
+import { useUser } from '../../Authorization/Authorization';
 import { queryClient } from '../../main';
 import { profileUser } from '../../api/auth';
 
 import styles from './ProfilePage.module.scss';
 
 export default function ProfilePage() {
+  const { data: currentUser } = useUser();
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm({ mode: 'onChange', criteriaMode: 'all' });
+    reset,
+  } = useForm({
+    mode: 'onChange',
+    criteriaMode: 'all',
+    defaultValues: {
+      username: '',
+      email: '',
+      password: '',
+      avatar: '',
+    },
+  });
 
   // функция, вызывается при отправке формы
   const onSubmit = async (data) => {
     try {
-      // отправляю данные на сервер
-      const response = await profileUser({
-        username: data.username,
-        email: data.email,
-        password: data.password,
-        image: data.avatar,
-      });
+      const payload = {};
 
-      // сохраняю токен в localStorage
+      if (data.username && data.username !== currentUser?.username) {
+        payload.username = data.username;
+      }
+      if (data.email && data.email !== currentUser?.email) {
+        payload.email = data.email;
+      }
+      if (data.password) {
+        payload.password = data.password;
+      }
+      if (data.avatar && data.avatar !== currentUser?.image) {
+        payload.image = data.avatar;
+      }
+
+      if (Object.keys(payload).length === 0) return;
+
+      const response = await profileUser(payload);
+
       localStorage.setItem('token', response.user.token);
-
       await queryClient.invalidateQueries(['currentUser']);
     } catch (error) {
-      // если есть ошибки от сервера — покажу под полями
       const serverErrors = error.response?.data?.errors;
       if (serverErrors?.email) {
-        setError('email', { message: serverErrors.email.join(', ') });
+        const message = Array.isArray(serverErrors.email) ? serverErrors.email.join(', ') : serverErrors.email;
+        setError('email', { message });
       }
       if (serverErrors?.username) {
-        setError('username', { message: serverErrors.username.join(', ') });
+        const message = Array.isArray(serverErrors.username) ? serverErrors.username.join(', ') : serverErrors.username;
+        setError('username', { message });
       }
     }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      reset({
+        username: currentUser.username || '',
+        email: currentUser.email || '',
+        avatar: currentUser.image || '',
+      });
+    }
+  }, [currentUser, reset]);
 
   return (
     <div className={styles.container}>
@@ -51,12 +84,11 @@ export default function ProfilePage() {
           <input
             className={`${styles.input} ${errors.username ? styles.errorInput : ''}`}
             {...register('username', {
-              required: 'Введите имя',
               minLength: { value: 3, message: 'Минимум 3 символа' },
               maxLength: { value: 20, message: 'Максимум 20 символов' },
               pattern: {
-                value: /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё0-9]*$/u,
-                message: 'Имя должно начинаться с буквы и может содержать цифры',
+                value: /^[a-zA-Z0-9_-]{3,20}$/,
+                message: 'Имя может содержать только латинские буквы, цифры, дефис и подчёркивание',
               },
             })}
             placeholder="Username"
@@ -70,7 +102,6 @@ export default function ProfilePage() {
           <input
             className={`${styles.input} ${errors.email ? styles.errorInput : ''}`}
             {...register('email', {
-              required: 'Введите email',
               pattern: {
                 value: /^\S+@\S+\.\S+$/,
                 message: 'Введите корректный email',
@@ -88,7 +119,6 @@ export default function ProfilePage() {
             className={`${styles.input} ${errors.password ? styles.errorInput : ''}`}
             type="password"
             {...register('password', {
-              required: 'Введите пароль',
               minLength: { value: 6, message: 'Минимум 6 символов' },
               maxLength: { value: 40, message: 'Максимум 40 символов' },
               pattern: {

@@ -85,10 +85,10 @@ export default function ArticleCard({ article }) {
       {tagList.length > 0 && (
         <ul className={styles.tags}>
           {tagList
-            .filter((tag) => tag.trim() !== '')
+            .filter((tag) => tag?.trim() !== '')
             .map((tag) => (
               <li key={tag} className={styles.tag}>
-                {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                {tag?.charAt(0).toUpperCase() + tag?.slice(1)}
               </li>
             ))}
         </ul>

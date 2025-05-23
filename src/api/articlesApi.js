@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'https://blog-platform.kata.academy/api';
 
+//Запрашивает список статей с сервера, по страницам (пагинация). Возвращает статьи и общее количество статей.
 export const getArticles = async (page = 1, limit = 5) => {
   const offset = (page - 1) * limit;
   const token = localStorage.getItem('token');
@@ -14,11 +15,13 @@ export const getArticles = async (page = 1, limit = 5) => {
   };
 };
 
+//Запрашивает конкретную статью по её уникальному идентификатору (slug). Возвращает данные этой статьи.
 export const getArticle = async (slug) => {
   const response = await axios.get(`${API_URL}/articles/${slug}`);
   return response.data.article;
 };
 
+//Добавляет лайк к статье (отмечает как понравившуюся).
 export const likeArticle = async (slug) => {
   const token = localStorage.getItem('token');
   if (!token) throw new Error('Пользователь не авторизован');
@@ -30,6 +33,7 @@ export const likeArticle = async (slug) => {
   return response.data.article;
 };
 
+//Убирает лайк с статьи.
 export const unlikeArticle = async (slug) => {
   const token = localStorage.getItem('token');
   if (!token) throw new Error('Пользователь не авторизован');

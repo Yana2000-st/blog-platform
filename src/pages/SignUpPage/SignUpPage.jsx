@@ -32,11 +32,17 @@ export default function SignUpPage() {
     } catch (error) {
       // если есть ошибки от сервера — покажу под полями
       const serverErrors = error.response?.data?.errors;
-      if (serverErrors?.email) {
-        setError('email', { message: serverErrors.email.join(', ') });
-      }
       if (serverErrors?.username) {
-        setError('username', { message: serverErrors.username.join(', ') });
+        const usernameError = Array.isArray(serverErrors.username)
+          ? serverErrors.username.join(', ')
+          : serverErrors.username;
+
+        setError('username', { message: usernameError });
+      }
+      if (serverErrors?.email) {
+        const emailError = Array.isArray(serverErrors.email) ? serverErrors.email.join(', ') : serverErrors.email;
+
+        setError('email', { message: emailError });
       }
     }
   };
@@ -56,8 +62,8 @@ export default function SignUpPage() {
               minLength: { value: 3, message: 'Минимум 3 символа' },
               maxLength: { value: 20, message: 'Максимум 20 символов' },
               pattern: {
-                value: /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё0-9]*$/u,
-                message: 'Имя должно начинаться с буквы и может содержать цифры',
+                value: /^[a-zA-Z0-9_-]{3,20}$/,
+                message: 'Имя может содержать только латинские буквы, цифры, дефис и подчёркивание',
               },
             })}
             placeholder="Username"
