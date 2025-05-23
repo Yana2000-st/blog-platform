@@ -106,5 +106,16 @@
 }
 
 .errorInput {
-    border: 2px solid red;
+  border: 2px solid red;
+}
+
+.redirect {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.redirect a {
+  color: #1890ff;
 }

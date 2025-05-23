@@ -27,19 +27,21 @@ export default function ArticlePage() {
         <div className={styles.header}>
           <div className={styles.left}>
             <div className={styles.titleWrapper}>
-              <h1 className={styles.title}>{title}</h1>
+              <h1 className={styles.title}>{title?.trim() ? title : 'Без названия'}</h1>
               <button className={styles.likeBtn} disabled>
                 🤍 <span>{favoritesCount}</span>
               </button>
             </div>
 
-            <ul className={styles.tags}>
-              {tagList.map((tag) => (
-                <li key={tag} className={styles.tag}>
-                  {tag}
-                </li>
-              ))}
-            </ul>
+            {tagList.length > 0 && (
+              <ul className={styles.tags}>
+                {tagList.map((tag) => (
+                  <li key={tag} className={styles.tag}>
+                    {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <AuthorBlock author={author} createdAt={createdAt} />

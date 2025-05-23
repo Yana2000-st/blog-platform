@@ -63,3 +63,13 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.errorInput {
+  border: 2px solid red;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  font-size: 12px;
+}

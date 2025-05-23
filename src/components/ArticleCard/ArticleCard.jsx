@@ -13,7 +13,7 @@ export default function ArticleCard({ article }) {
         <div>
           <div className={styles.titleWrapper}>
             <h2 className={styles.title}>
-              <Link to={`/articles/${slug}`}>{title}</Link>
+              <Link to={`/articles/${slug}`}>{title?.trim() ? title : 'Без названия'}</Link>
             </h2>
             <button className={styles.likeBtn} disabled>
               🤍<span>{favoritesCount}</span>
@@ -29,7 +29,7 @@ export default function ArticleCard({ article }) {
           .filter((tag) => tag.trim() !== '')
           .map((tag) => (
             <li key={tag} className={styles.tag}>
-              {tag}
+              {tag.charAt(0).toUpperCase() + tag.slice(1)}
             </li>
           ))}
       </ul>

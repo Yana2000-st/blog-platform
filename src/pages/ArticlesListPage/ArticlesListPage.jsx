@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Pagination } from 'antd';
 
 import { getArticles } from '../../api/articlesApi';
@@ -8,8 +8,8 @@ import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import styles from './ArticlesListPage.module.scss';
 
 export default function ArticlesListPage() {
-  const [page, setPage] = useState(1);
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1', 10);
   const { data, isLoading, error } = useQuery({
     queryKey: ['articles', page],
     queryFn: () => getArticles(page),
@@ -42,7 +42,7 @@ export default function ArticlesListPage() {
           current={page}
           pageSize={pageSize}
           total={totalArticles}
-          onChange={(newPage) => setPage(newPage)}
+          onChange={(newPage) => setSearchParams({ page: newPage })}
           showSizeChanger={false}
         />
       </div>

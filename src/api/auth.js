@@ -15,3 +15,25 @@ export const loginUser = async (userData) => {
   });
   return response.data;
 };
+
+export const profileUser = async (userData) => {
+  const token = localStorage.getItem('token');
+  const response = await axios.put(
+    `${API_URL}/user`,
+    { user: userData },
+    {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const getCurrentUser = async () => {
+  const token = localStorage.getItem('token');
+  const response = await axios.get(`${API_URL}/user`, {
+    headers: { Authorization: `Token ${token}` },
+  });
+  return response.data.user;
+};

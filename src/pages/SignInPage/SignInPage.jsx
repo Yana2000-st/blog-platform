@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { loginUser } from '../../api/auth';
+import { queryClient } from '../../main';
 
 import styles from './SignInPage.module.scss';
 
 export default function SignInPage() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,7 +24,8 @@ export default function SignInPage() {
       });
 
       localStorage.setItem('token', response.user.token);
-      alert('Успешный вход!');
+      queryClient.setQueryData(['currentUser'], response.user);
+      navigate('/');
     } catch (error) {
       const serverErrors = error.response?.data?.errors;
 

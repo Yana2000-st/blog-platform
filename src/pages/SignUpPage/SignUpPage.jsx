@@ -67,7 +67,7 @@ export default function SignUpPage() {
         <label className={styles.label}>
           Email address
           <input
-               className={`${styles.input} ${errors.email ? styles.errorInput : ''}`}
+            className={`${styles.input} ${errors.email ? styles.errorInput : ''}`}
             {...register('email', {
               required: 'Введите email',
               pattern: {
@@ -84,7 +84,7 @@ export default function SignUpPage() {
         <label className={styles.label}>
           Password
           <input
-              className={`${styles.input} ${errors.password ? styles.errorInput : ''}`}
+            className={`${styles.input} ${errors.password ? styles.errorInput : ''}`}
             type="password"
             {...register('password', {
               required: 'Введите пароль',
@@ -104,7 +104,7 @@ export default function SignUpPage() {
         <label className={styles.label}>
           Repeat Password
           <input
-    className={`${styles.input} ${errors.password ? styles.errorInput : ''}`}
+            className={`${styles.input} ${errors.password ? styles.errorInput : ''}`}
             type="password"
             {...register('repeatPassword', {
               required: 'Повторите пароль',
@@ -130,6 +130,9 @@ export default function SignUpPage() {
         <button type="submit" className={styles.submitButton}>
           Create
         </button>
+        <p className={styles.redirect}>
+          Already have an account? <a href="/sign-in">Sign In</a>.
+        </p>
       </form>
     </div>
   );
