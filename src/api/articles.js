@@ -20,3 +20,20 @@ export const createArticle = async (articleData) => {
 
   return response.data.article;
 };
+
+export const updateArticle = async (slug, articleData) => {
+  const token = localStorage.getItem('token');
+  const response = await axios.put(
+    `${API_URL}/articles/${slug}`,
+    { article: articleData },
+    { headers: { Authorization: `Token ${token}` } }
+  );
+  return response.data.article;
+};
+
+export const deleteArticle = async (slug) => {
+  const token = localStorage.getItem('token');
+  await axios.delete(`${API_URL}/articles/${slug}`, {
+    headers: { Authorization: `Token ${token}` },
+  });
+};

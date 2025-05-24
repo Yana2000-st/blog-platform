@@ -7,6 +7,7 @@ import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import SignInPage from '../pages/SignInPage/SignInPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import CreateArticlePage from '../pages/CreateArticlePage/CreateArticlePage';
+import EditArticlePage from '../pages/EditArticlePage/EditArticlePage';
 
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
@@ -24,6 +25,14 @@ export default function AppRoutes() {
         element={
           <PrivateRoute>
             <CreateArticlePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/articles/:slug/edit"
+        element={
+          <PrivateRoute>
+            <EditArticlePage />
           </PrivateRoute>
         }
       />

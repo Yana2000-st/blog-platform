@@ -46,26 +46,6 @@
   color: #40a9ff;
 }
 
-// .likeBtn {
-//   background: transparent;
-//   border: none;
-//   border-radius: 12px;
-//   padding: 2px 8px;
-//   font-size: 16px;
-//   cursor: pointer;
-// }
-
-// .link:hover,
-// .likeBtn:hover {
-//   background-color: #e6f7ff;
-//   color: #1890ff;
-// }
-
-// .likeBtn:disabled {
-//   opacity: 0.5;
-//   cursor: not-allowed;
-// }
-
 .tags {
   list-style: none;
   padding: 0;
@@ -94,6 +74,10 @@
 .description {
   font-size: 12px;
   color: #bfbfbf;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .backLink {
@@ -139,4 +123,29 @@
 .disabledLike {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.editBtn {
+  border: 1px solid #52c41a;
+  color: #52c41a;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 8px 36px;
+  text-decoration: none;
+}
+
+.deleteBtn {
+  border: 1px solid #f5222d;
+  color: #f5222d;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 8px 36px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }

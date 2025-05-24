@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../../Authorization/Authorization';
 import { queryClient } from '../../main';
@@ -8,6 +9,7 @@ import { profileUser } from '../../api/auth';
 import styles from './ProfilePage.module.scss';
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const { data: currentUser } = useUser();
   const {
     register,
@@ -50,6 +52,7 @@ export default function ProfilePage() {
 
       localStorage.setItem('token', response.user.token);
       await queryClient.invalidateQueries(['currentUser']);
+      navigate('/');
     } catch (error) {
       const serverErrors = error.response?.data?.errors;
       if (serverErrors?.email) {

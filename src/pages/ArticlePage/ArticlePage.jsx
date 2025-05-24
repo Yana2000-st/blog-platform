@@ -1,10 +1,12 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import ReactMarkdown from 'react-markdown';
 import { useState, useEffect } from 'react';
+import { Popconfirm, message } from 'antd';
 
 import { queryClient } from '../../main';
 import { getArticle, likeArticle, unlikeArticle } from '../../api/articlesApi';
+import { deleteArticle } from '../../api/articles';
 import { useUser } from '../../Authorization/Authorization';
 import AuthorBlock from '../../components/AuthorBlock/AuthorBlock';
 
@@ -12,6 +14,7 @@ import styles from './ArticlePage.module.scss';
 
 export default function ArticlePage() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const { data: user } = useUser();
 
   const { data, isLoading, error } = useQuery({
@@ -34,7 +37,6 @@ export default function ArticlePage() {
     mutationFn: () => likeArticle(slug),
     onSuccess: (newArticle) => {
       queryClient.setQueryData(['article', slug], newArticle);
-
       queryClient.setQueriesData({ queryKey: ['articles'], exact: false }, (oldData) => {
         if (!oldData) return oldData;
         return {
@@ -52,7 +54,6 @@ export default function ArticlePage() {
     mutationFn: () => unlikeArticle(slug),
     onSuccess: (newArticle) => {
       queryClient.setQueryData(['article', slug], newArticle);
-
       queryClient.setQueriesData({ queryKey: ['articles'], exact: false }, (oldData) => {
         if (!oldData) return oldData;
         return {
@@ -66,9 +67,21 @@ export default function ArticlePage() {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteArticle(slug),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['articles'] });
+      navigate('/');
+    },
+  });
+
   const handleLikeClick = () => {
     if (!user) return;
     liked ? unlikeMutation.mutate() : likeMutation.mutate();
+  };
+
+  const handleDelete = () => {
+    deleteMutation.mutate();
   };
 
   if (isLoading) return <p>Загрузка...</p>;
@@ -100,7 +113,7 @@ export default function ArticlePage() {
                   .filter((tag) => tag?.trim() !== '')
                   .map((tag) => (
                     <li key={tag} className={styles.tag}>
-                      {tag?.charAt(0).toUpperCase() + tag?.slice(1)}
+                      {tag.charAt(0).toUpperCase() + tag.slice(1)}
                     </li>
                   ))}
               </ul>
@@ -109,6 +122,24 @@ export default function ArticlePage() {
 
           <AuthorBlock author={author} createdAt={createdAt} />
         </div>
+
+        {user?.username === author?.username && (
+          <div className={styles.actions}>
+            <Popconfirm
+              title="Are you sure to delete this article?"
+              onConfirm={handleDelete}
+              onCancel={() => message.info('Deletion cancelled')}
+              okText="Yes"
+              cancelText="No"
+            >
+              <button className={styles.deleteBtn}>Delete</button>
+            </Popconfirm>
+
+            <Link to={`/articles/${slug}/edit`} className={styles.editBtn}>
+              Edit
+            </Link>
+          </div>
+        )}
 
         <p className={styles.description}>{description}</p>
         <div className={styles.markdown}>
