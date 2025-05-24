@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { loginUser } from '../../api/auth';
 import { queryClient } from '../../main';
@@ -88,7 +88,7 @@ export default function SignInPage() {
           Login
         </button>
         <p className={styles.redirect}>
-          Don’t have an account? <a href="/sign-up">Sign Up</a>.
+          Don’t have an account? <Link to="/sign-up">Sign Up</Link>.
         </p>
       </form>
     </div>

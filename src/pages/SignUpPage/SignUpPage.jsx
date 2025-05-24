@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { registerUser } from '../../api/auth';
 
@@ -139,7 +139,7 @@ export default function SignUpPage() {
           Create
         </button>
         <p className={styles.redirect}>
-          Already have an account? <a href="/sign-in">Sign In</a>.
+          Already have an account? <Link to="/sign-in">Sign In</Link>.
         </p>
       </form>
     </div>
