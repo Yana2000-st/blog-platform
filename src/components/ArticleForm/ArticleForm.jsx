@@ -85,9 +85,12 @@ export default function ArticleForm({ onSubmit, initialValues = {}, isEdit = fal
                   <button type="button" onClick={() => remove(index)} className={styles.removeTag}>
                     Delete
                   </button>
-                  <button type="button" onClick={() => append({ tag: '' })} className={styles.addTag}>
-                    Add Tag
-                  </button>
+
+                  {index === fields.length - 1 && (
+                    <button type="button" onClick={() => append({ tag: '' })} className={styles.addTag}>
+                      Add Tag
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

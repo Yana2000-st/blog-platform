@@ -78,13 +78,6 @@
   align-self: flex-start;
 }
 
-.tagWrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
 .tagsBlock {
   display: flex;
   flex-direction: column;
@@ -114,7 +107,7 @@
   margin-bottom: 10px;
 }
 
-.tagButtons {
+.tagsBlock {
   display: flex;
   gap: 10px;
 }
@@ -148,6 +141,7 @@
   border-radius: 4px;
   background-color: #fff;
   padding: 8px 36px;
+  margin-right: 17px;
 }
 
 .addTag {

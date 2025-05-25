@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 
 import ArticlesListPage from '../pages/ArticlesListPage/ArticlesListPage';
 import ArticlePage from '../pages/ArticlePage/ArticlePage';
@@ -8,6 +7,7 @@ import SignInPage from '../pages/SignInPage/SignInPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import CreateArticlePage from '../pages/CreateArticlePage/CreateArticlePage';
 import EditArticlePage from '../pages/EditArticlePage/EditArticlePage';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
@@ -36,7 +36,7 @@ export default function AppRoutes() {
           </PrivateRoute>
         }
       />
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

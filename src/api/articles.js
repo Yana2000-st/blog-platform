@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'https://blog-platform.kata.academy/api';
 
+// Создаёт новую статью на сервере, требует авторизации
 export const createArticle = async (articleData) => {
   const token = localStorage.getItem('token');
   if (!token) throw new Error('Вы не авторизованы');
@@ -21,6 +22,7 @@ export const createArticle = async (articleData) => {
   return response.data.article;
 };
 
+// Обновляет статью по slug, требует авторизации
 export const updateArticle = async (slug, articleData) => {
   const token = localStorage.getItem('token');
   const response = await axios.put(
@@ -31,6 +33,7 @@ export const updateArticle = async (slug, articleData) => {
   return response.data.article;
 };
 
+// Удаляет статью по slug, требует авторизации
 export const deleteArticle = async (slug) => {
   const token = localStorage.getItem('token');
   await axios.delete(`${API_URL}/articles/${slug}`, {
