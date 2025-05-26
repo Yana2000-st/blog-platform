@@ -24,6 +24,7 @@ export default function SignInPage() {
       });
 
       localStorage.setItem('token', response.user.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
       queryClient.setQueryData(['currentUser'], response.user);
       navigate('/');
     } catch (error) {

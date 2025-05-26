@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 
+import { queryClient } from '../../main';
 import { registerUser } from '../../api/auth';
 
 import styles from './SignUpPage.module.scss';
@@ -19,15 +20,15 @@ export default function SignUpPage() {
   // функция, вызывается при отправке формы
   const onSubmit = async (data) => {
     try {
-      // отправляю данные на сервер
       const response = await registerUser({
         username: data.username,
         email: data.email,
         password: data.password,
       });
 
-      // сохраняю токен в localStorage
       localStorage.setItem('token', response.user.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      queryClient.setQueryData(['currentUser'], response.user);
       navigate('/');
     } catch (error) {
       // если есть ошибки от сервера — покажу под полями
