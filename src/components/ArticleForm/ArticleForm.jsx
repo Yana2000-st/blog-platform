@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import styles from './ArticleForm.module.scss';
 
-export default function ArticleForm({ onSubmit, initialValues = {}, isEdit = false }) {
+export default function ArticleForm({ onSubmit, initialValues = {}, isEdit = false, loading = false }) {
   const {
     register,
     handleSubmit,
@@ -97,8 +97,8 @@ export default function ArticleForm({ onSubmit, initialValues = {}, isEdit = fal
           </div>
         </label>
 
-        <button type="submit" className={styles.saveButton}>
-          Send
+        <button type="submit" className={styles.saveButton} disabled={loading}>
+          {loading ? 'Загрузка...' : 'Send'}
         </button>
       </form>
     </div>

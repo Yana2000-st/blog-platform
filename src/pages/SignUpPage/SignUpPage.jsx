@@ -99,10 +99,6 @@ export default function SignUpPage() {
               required: 'Введите пароль',
               minLength: { value: 6, message: 'Минимум 6 символов' },
               maxLength: { value: 40, message: 'Максимум 40 символов' },
-              pattern: {
-                value: /^(?=.*[A-Za-zА-Яа-яЁё])(?=.*\d).{6,}$/,
-                message: 'Пароль должен содержать хотя бы одну букву и одну цифру',
-              },
             })}
             placeholder="Password"
           />
